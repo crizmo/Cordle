@@ -213,6 +213,7 @@
 		text-transform: lowercase;
 		border: 2px solid #575757;
 		font-size: calc(0.08 * var(--width));
+		font-weight: 700;
 		border-radius: 2px;
 		/* background: #2c2d2e; */
 		margin: 0;
@@ -221,7 +222,7 @@
 	}
 
 	.letter.missing {
-		background: #303131;
+		background: #3a3a3c;
 		color: rgb(255, 255, 255);
 	}
 
@@ -233,7 +234,7 @@
 	.letter.close {
 		background: var(--color-theme-1);
 	}
-	
+
 	.controls {
 		text-align: center;
 		justify-content: center;
@@ -267,6 +268,7 @@
 		font-size: calc(var(--size) * 0.5);
 		margin: 0;
 		text-transform: uppercase;
+		font-weight: 700;
 	}
 
 	.keyboard button.exact {
