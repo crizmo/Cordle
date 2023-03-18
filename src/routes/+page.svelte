@@ -58,11 +58,11 @@
 <svelte:window on:keydown={keydown} />
 
 <svelte:head>
-	<title>Sverdle</title>
-	<meta name="description" content="A Wordle clone written in SvelteKit" />
+	<title>Codle</title>
+	<meta name="description" content="Wordle but with computer related words" />
 </svelte:head>
 
-<h1 class="visually-hidden">Sverdle</h1>
+<h1 class="visually-hidden">codle</h1>
 
 <form
 	method="POST"
@@ -109,7 +109,8 @@
 	<div class="controls">
 		{#if won || data.answers.length >= 6}
 			{#if !won && data.answer}
-				<p>the answer was "{data.answer}"</p>
+				<p style="color: white; font-size: 1.5rem; margin-bottom: 1rem;"
+				>The Answer was "{data.answer}"</p>
 			{/if}
 			<button data-key="enter" class="restart selected" formaction="?/restart">
 				{won ? 'you won :)' : `game over :(`} play again?
@@ -192,17 +193,13 @@
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
 		grid-gap: 0.2rem;
-		margin: 0 0 0.2rem 0;
+		margin: 0 0 0.3rem 0;
 	}
 
 	@media (prefers-reduced-motion: no-preference) {
 		.grid.bad-guess .row.current {
 			animation: wiggle 0.5s;
 		}
-	}
-
-	.grid.playing .row.current {
-		filter: drop-shadow(3px 3px 10px var(--color-bg-0));
 	}
 
 	.letter {
@@ -214,17 +211,18 @@
 		text-align: center;
 		box-sizing: border-box;
 		text-transform: lowercase;
-		border: none;
+		border: 2px solid #575757;
 		font-size: calc(0.08 * var(--width));
 		border-radius: 2px;
-		background: white;
+		/* background: #2c2d2e; */
 		margin: 0;
-		color: rgba(0, 0, 0, 0.7);
+		color: rgb(255, 255, 255);
+		text-transform: uppercase;
 	}
 
 	.letter.missing {
-		background: #787c7f;
-		color: rgba(0, 0, 0, 0.5);
+		background: #303131;
+		color: rgb(255, 255, 255);
 	}
 
 	.letter.exact {
@@ -237,9 +235,9 @@
 		/* border: 2px solid var(--color-theme-2); */
 	}
 
-	.selected {
+	/* .selected {
 		outline: 2px solid #787c7f;
-	}
+	} */
 
 	.controls {
 		text-align: center;
@@ -266,13 +264,14 @@
 	.keyboard button,
 	.keyboard button:disabled {
 		--size: min(8vw, 4vh, 40px);
-		background-color: white;
-		color: black;
+		background-color: #818384;
+		color: rgb(255, 255, 255);
 		width: var(--size);
 		border: none;
 		border-radius: 2px;
 		font-size: calc(var(--size) * 0.5);
 		margin: 0;
+		text-transform: uppercase;
 	}
 
 	.keyboard button.exact {
@@ -281,10 +280,12 @@
 	}
 
 	.keyboard button.missing {
+		background: #2c2d2e;;
 		opacity: 0.5;
 	}
 
 	.keyboard button.close {
+		background: var(--color-theme-1);
 		border: 2px solid var(--color-theme-1);
 	}
 
@@ -320,14 +321,14 @@
 	.restart {
 		width: 100%;
 		padding: 1rem;
-		background: rgba(255, 255, 255, 0.5);
+		background: #818384;
 		border-radius: 2px;
 		border: none;
 	}
 
 	.restart:focus,
 	.restart:hover {
-		background: var(--color-theme-1);
+		background: var(--color-theme-2);
 		color: white;
 		outline: none;
 	}
