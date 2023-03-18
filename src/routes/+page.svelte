@@ -232,13 +232,8 @@
 
 	.letter.close {
 		background: var(--color-theme-1);
-		/* border: 2px solid var(--color-theme-2); */
 	}
-
-	/* .selected {
-		outline: 2px solid #787c7f;
-	} */
-
+	
 	.controls {
 		text-align: center;
 		justify-content: center;
