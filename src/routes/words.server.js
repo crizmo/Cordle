@@ -10515,6 +10515,7 @@ export const allowed = new Set([
 	'yarrs',
 	'yarta',
 	'yarto',
+	'yatch',
 	'yates',
 	'yauds',
 	'yauld',
