@@ -62,13 +62,15 @@
 	<meta name="description" content="Wordle but with computer related words" />
 </svelte:head>
 
-<h1 class="visually-hidden">codle</h1>
+<h1 style="text-align: center; color: white; font-size: 2rem; font-weight: 700;
+">Codle</h1>
+
+<hr style="width: 100%; margin: 0; border: 0; border-bottom: 1px solid #565758;" />
 
 <form
 	method="POST"
 	action="?/enter"
 	use:enhance={() => {
-		// prevent default callback from resetting the form
 		return ({ update }) => {
 			update({ reset: false });
 		};
@@ -160,7 +162,7 @@
 			force: 0.7,
 			stageWidth: window.innerWidth,
 			stageHeight: window.innerHeight,
-			colors: ['#ff3e00', '#40b3ff', '#676778']
+			colors: ['#f7da21', '#6aaa64', '#fff']
 		}}
 	/>
 {/if}
