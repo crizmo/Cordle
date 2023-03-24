@@ -80,7 +80,6 @@
 
 		navigator.clipboard.writeText(copyText).then(
 			function () {
-				// make a small popup on top center of the screen
 				Swal.fire({
 					html: `<p style="font-size: 1rem; color: #3a3a3c;
 					margin: 0; padding: 0; text-align: center; 
@@ -100,7 +99,7 @@
 					position: "top",
 					showConfirmButton: false,
 					width: "15rem",
-					
+
 				});
 			}
 		);
