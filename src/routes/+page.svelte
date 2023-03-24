@@ -11,11 +11,12 @@
 
 	export let form;
 
-	$: won = data.answers.at(-1) === 'xxxxx';
+	$: won = data.answers.at(-1) === "xxxxx";
 	$: i = won ? -1 : data.answers.length;
 	$: submittable = data.guesses[i]?.length === 5;
 	let classnames;
 	let description;
+	console.log(data);
 
 	$: {
 		classnames = {};
@@ -52,6 +53,59 @@
 		}
 	}
 
+	function share() {
+		let answers = data.answers;
+		let copycode;
+		answers.forEach(function (answer) {
+			if (answer.includes("_")) {
+				answer = answer.replace(/_/g, "⬛");
+			}
+			if (answer.includes("c")) {
+				answer = answer.replace(/c/g, "🟨");
+			}
+			if (answer.includes("x")) {
+				answer = answer.replace(/x/g, "🟩");
+			}
+			if (copycode === undefined) {
+				copycode = "";
+			}
+			copycode = copycode + answer + "\n";
+		});
+
+		let tries = data.answers.length;
+		console.log("Tries: " + tries);
+
+		console.log("Codle : " + tries + "/6 \n\n" + copycode);
+		let copyText = "Codle : " + tries + "/6 \n\n" + copycode;
+
+		navigator.clipboard.writeText(copyText).then(
+			function () {
+				// make a small popup on top center of the screen
+				Swal.fire({
+					html: `<p style="font-size: 1rem; color: #3a3a3c;
+					margin: 0; padding: 0; text-align: center; 
+				">Copied to clipboard!</p>`,
+					timer: 2000,
+					position: "top",
+					showConfirmButton: false,
+					width: "15rem",
+				});
+			},
+			function () {
+				Swal.fire({
+					html: `<p style="font-size: 1rem; color: #3a3a3c;
+					margin: 0; padding: 0; text-align: center;
+				">Failed to copy to clipboard!</p>`,
+					timer: 2000,
+					position: "top",
+					showConfirmButton: false,
+					width: "15rem",
+					
+				});
+			}
+		);
+	}
+
 	function keydown(event) {
 		if (event.metaKey) return;
 
@@ -59,8 +113,6 @@
 			.querySelector(`[data-key="${event.key}" i]`)
 			?.dispatchEvent(new MouseEvent("click", { cancelable: true }));
 	}
-
-
 </script>
 
 <svelte:window on:keydown={keydown} />
@@ -85,7 +137,7 @@
 				title: "How to play",
 				html: `${howtoplay}`,
 				confirmButtonText: "Got it!",
-				confirmButtonColor: "#3a3a3c",	
+				confirmButtonColor: "#3a3a3c",
 			});
 		}}
 	>
@@ -99,7 +151,6 @@
 <hr
 	style="width: 100%; margin: 0; border: 0; border-bottom: 1px solid #565758;"
 />
-
 
 <form
 	method="POST"
@@ -170,6 +221,8 @@
 			>
 				{won ? "you won :)" : `game over :(`} play again?
 			</button>
+
+			<button class="share selected" on:click={share}> Share </button>
 		{:else}
 			<div class="keyboard">
 				<button
@@ -353,8 +406,7 @@
 	}
 
 	.keyboard button[data-key="enter"],
-	.keyboard button[data-key="backspace"] 
-	{
+	.keyboard button[data-key="backspace"] {
 		position: absolute;
 		bottom: 0;
 		width: calc(1.5 * var(--size));
@@ -386,6 +438,22 @@
 
 	.restart:focus,
 	.restart:hover {
+		background: var(--color-theme-2);
+		color: white;
+		outline: none;
+	}
+
+	.share {
+		width: 50%;
+		padding: 0.5rem;
+		background: #818384;
+		border-radius: 2px;
+		border: none;
+		margin-top: 1rem;
+	}
+
+	.share:focus,
+	.share:hover {
 		background: var(--color-theme-2);
 		color: white;
 		outline: none;
