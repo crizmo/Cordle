@@ -44,5 +44,5 @@ export const actions = {
 
 	restart: async ({ cookies }) => {
 		cookies.delete('codle');
-	}
+	},
 };

@@ -1,8 +1,11 @@
 <script>
-	import { confetti } from '@neoconfetti/svelte';
-	import { enhance } from '$app/forms';
+	import { confetti } from "@neoconfetti/svelte";
+	import { enhance } from "$app/forms";
 
-	import { reduced_motion } from './reduced-motion';
+	import { reduced_motion } from "./reduced-motion";
+	import Swal from "sweetalert2";
+
+	import { howtoplay } from "./howtoplay.js";
 
 	export let data;
 
@@ -24,12 +27,14 @@
 			for (let i = 0; i < 5; i += 1) {
 				const letter = guess[i];
 
-				if (answer[i] === 'x') {
-					classnames[letter] = 'exact';
-					description[letter] = 'correct';
+				if (answer[i] === "x") {
+					classnames[letter] = "exact";
+					description[letter] = "correct";
 				} else if (!classnames[letter]) {
-					classnames[letter] = answer[i] === 'c' ? 'close' : 'missing';
-					description[letter] = answer[i] === 'c' ? 'present' : 'absent';
+					classnames[letter] =
+						answer[i] === "c" ? "close" : "missing";
+					description[letter] =
+						answer[i] === "c" ? "present" : "absent";
 				}
 			}
 		});
@@ -37,22 +42,25 @@
 
 	function update(event) {
 		const guess = data.guesses[i];
-		const key = (event.target).getAttribute('data-key');
+		const key = event.target.getAttribute("data-key");
 
-		if (key === 'backspace') {
+		if (key === "backspace") {
 			data.guesses[i] = guess.slice(0, -1);
 			if (form?.badGuess) form.badGuess = false;
 		} else if (guess.length < 5) {
 			data.guesses[i] += key;
 		}
 	}
+
 	function keydown(event) {
 		if (event.metaKey) return;
 
 		document
 			.querySelector(`[data-key="${event.key}" i]`)
-			?.dispatchEvent(new MouseEvent('click', { cancelable: true }));
+			?.dispatchEvent(new MouseEvent("click", { cancelable: true }));
 	}
+
+
 </script>
 
 <svelte:window on:keydown={keydown} />
@@ -62,10 +70,36 @@
 	<meta name="description" content="Wordle but with computer related words" />
 </svelte:head>
 
-<h1 style="text-align: center; color: white; font-size: 2rem; font-weight: 700;
-">Codle</h1>
+<div style="width: 100%; height: 5rem; position: relative;">
+	<h1
+		style="text-align: center; color: white; font-size: 2rem; font-weight: 700; position: absolute; top: 20%; left: 50%; transform: translate(-50%, -50%);
+			font-family: 'Monospace', monospace; font-weight: 700; letter-spacing: 0.1rem; text-transform: uppercase;
+		"
+	>
+		Codle
+	</h1>
+	<button
+		style="font-size: 1rem; background: none; border: none; cursor: pointer; position: absolute; top: 50%; right: 1rem; transform: translateY(-50%);"
+		on:click={() => {
+			Swal.fire({
+				title: "How to play",
+				html: `${howtoplay}`,
+				confirmButtonText: "Got it!",
+				confirmButtonColor: "#3a3a3c",	
+			});
+		}}
+	>
+		<img
+			src="https://img.icons8.com/ios/50/000000/unverified-account.png"
+			style="width: 2rem; height: 2rem; filter: invert(1);"
+			alt="info"
+		/>
+	</button>
+</div>
+<hr
+	style="width: 100%; margin: 0; border: 0; border-bottom: 1px solid #565758;"
+/>
 
-<hr style="width: 100%; margin: 0; border: 0; border-bottom: 1px solid #565758;" />
 
 <form
 	method="POST"
@@ -83,12 +117,19 @@
 			<div class="row" class:current>
 				{#each Array(5) as _, column}
 					{@const answer = data.answers[row]?.[column]}
-					{@const value = data.guesses[row]?.[column] ?? ''}
-					{@const selected = current && column === data.guesses[row].length}
-					{@const exact = answer === 'x'}
-					{@const close = answer === 'c'}
-					{@const missing = answer === '_'}
-					<div class="letter" class:exact class:close class:missing class:selected>
+					{@const value = data.guesses[row]?.[column] ?? ""}
+					{@const selected =
+						current && column === data.guesses[row].length}
+					{@const exact = answer === "x"}
+					{@const close = answer === "c"}
+					{@const missing = answer === "_"}
+					<div
+						class="letter"
+						class:exact
+						class:close
+						class:missing
+						class:selected
+					>
 						{value}
 						<span class="visually-hidden">
 							{#if exact}
@@ -101,7 +142,12 @@
 								empty
 							{/if}
 						</span>
-						<input name="guess" disabled={!current} type="hidden" {value} />
+						<input
+							name="guess"
+							disabled={!current}
+							type="hidden"
+							{value}
+						/>
 					</div>
 				{/each}
 			</div>
@@ -111,15 +157,26 @@
 	<div class="controls">
 		{#if won || data.answers.length >= 6}
 			{#if !won && data.answer}
-				<p style="color: white; font-size: 1.5rem; margin-bottom: 1rem;"
-				>The Answer was "{data.answer}"</p>
+				<p
+					style="color: white; font-size: 1.5rem; margin-bottom: 1rem;"
+				>
+					The Answer was "{data.answer}"
+				</p>
 			{/if}
-			<button data-key="enter" class="restart selected" formaction="?/restart">
-				{won ? 'you won :)' : `game over :(`} play again?
+			<button
+				data-key="enter"
+				class="restart selected"
+				formaction="?/restart"
+			>
+				{won ? "you won :)" : `game over :(`} play again?
 			</button>
 		{:else}
 			<div class="keyboard">
-				<button data-key="enter" class:selected={submittable} disabled={!submittable}>enter</button>
+				<button
+					data-key="enter"
+					class:selected={submittable}
+					disabled={!submittable}>enter</button
+				>
 
 				<button
 					on:click|preventDefault={update}
@@ -131,7 +188,7 @@
 					back
 				</button>
 
-				{#each ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'] as row}
+				{#each ["qwertyuiop", "asdfghjkl", "zxcvbnm"] as row}
 					<div class="row">
 						{#each row as letter}
 							<button
@@ -142,7 +199,8 @@
 								formaction="?/update"
 								name="key"
 								value={letter}
-								aria-label="{letter} {description[letter] || ''}"
+								aria-label="{letter} {description[letter] ||
+									''}"
 							>
 								{letter}
 							</button>
@@ -162,7 +220,7 @@
 			force: 0.7,
 			stageWidth: window.innerWidth,
 			stageHeight: window.innerHeight,
-			colors: ['#f7da21', '#6aaa64', '#fff']
+			colors: ["#f7da21", "#6aaa64", "#fff"],
 		}}
 	/>
 {/if}
@@ -176,7 +234,7 @@
 		align-items: center;
 		justify-content: center;
 		gap: 1rem;
-		flex: 1;
+		flex: 0.5;
 	}
 
 	.grid {
@@ -279,7 +337,7 @@
 	}
 
 	.keyboard button.missing {
-		background: #2c2d2e;;
+		background: #2c2d2e;
 		opacity: 0.5;
 	}
 
@@ -294,8 +352,9 @@
 		outline: none;
 	}
 
-	.keyboard button[data-key='enter'],
-	.keyboard button[data-key='backspace'] {
+	.keyboard button[data-key="enter"],
+	.keyboard button[data-key="backspace"] 
+	{
 		position: absolute;
 		bottom: 0;
 		width: calc(1.5 * var(--size));
@@ -305,15 +364,15 @@
 		padding-top: calc(0.15 * var(--size));
 	}
 
-	.keyboard button[data-key='enter'] {
+	.keyboard button[data-key="enter"] {
 		right: calc(50% + 3.5 * var(--size) + 0.8rem);
 	}
 
-	.keyboard button[data-key='backspace'] {
+	.keyboard button[data-key="backspace"] {
 		left: calc(50% + 3.5 * var(--size) + 0.8rem);
 	}
 
-	.keyboard button[data-key='enter']:disabled {
+	.keyboard button[data-key="enter"]:disabled {
 		opacity: 0.5;
 	}
 
