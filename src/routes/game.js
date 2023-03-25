@@ -19,11 +19,7 @@ export class Game {
 
 		this.answer = words[this.index];
 	}
-
-	/**
-	 * Update game state based on a guess of a five-letter word. Returns
-	 * true if the guess was valid, false otherwise
-	 */
+        
 	enter(letters) {
 		const word = letters.join('');
 		const valid = allowed.has(word);
