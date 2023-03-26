@@ -2,7 +2,7 @@ import { fail } from '@sveltejs/kit';
 import { Game } from './game';
 
 export const load = ({ cookies }) => {
-	const game = new Game(cookies.get('codle'));
+	const game = new Game(cookies.get('cordle'));
 
 	return {
 		guesses: game.guesses,
@@ -13,7 +13,7 @@ export const load = ({ cookies }) => {
 
 export const actions = {
 	update: async ({ request, cookies }) => {
-		const game = new Game(cookies.get('codle'));
+		const game = new Game(cookies.get('cordle'));
 
 		const data = await request.formData();
 		const key = data.get('key');
@@ -26,11 +26,11 @@ export const actions = {
 			game.guesses[i] += key;
 		}
 
-		cookies.set('codle', game.toString());
+		cookies.set('cordle', game.toString());
 	},
 
 	enter: async ({ request, cookies }) => {
-		const game = new Game(cookies.get('codle'));
+		const game = new Game(cookies.get('cordle'));
 
 		const data = await request.formData();
 		const guess = (data.getAll('guess'));
@@ -39,10 +39,10 @@ export const actions = {
 			return fail(400, { badGuess: true });
 		}
 
-		cookies.set('codle', game.toString());
+		cookies.set('cordle', game.toString());
 	},
 
 	restart: async ({ cookies }) => {
-		cookies.delete('codle');
+		cookies.delete('cordle');
 	},
 };

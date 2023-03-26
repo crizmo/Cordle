@@ -1,6 +1,5 @@
 /** The list of possible words */
 export const words = [
-	"codle",
 	"debug",
     "stack",
     "array",
@@ -1844,7 +1843,6 @@ export const allowed = new Set([
 	'coeds',
 	'coffs',
 	'cogie',
-	'codle',
 	'cogon',
 	'cogue',
 	'cohab',

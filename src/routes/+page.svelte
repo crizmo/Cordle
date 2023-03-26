@@ -77,8 +77,8 @@
 		let tries = data.answers.length;
 		console.log("Tries: " + tries);
 
-		console.log("Codle : " + tries + "/6 \n\n" + copycode);
-		let copyText = "Codle : " + tries + "/6 \n\n" + copycode;
+		console.log("Cordle : " + tries + "/6 \n\n" + copycode);
+		let copyText = "Cordle : " + tries + "/6 \n\n" + copycode;
 
 		navigator.clipboard.writeText(copyText).then(
 			function () {
@@ -119,7 +119,7 @@
 <svelte:window on:keydown={keydown} />
 
 <svelte:head>
-	<title>Codle</title>
+	<title>Cordle</title>
 	<meta name="description" content="Wordle but with computer related words" />
 </svelte:head>
 
@@ -129,7 +129,7 @@
 			font-family: 'Monospace', monospace; font-weight: 700; letter-spacing: 0.1rem; text-transform: uppercase;
 		"
 	>
-		Codle
+		Cordle
 	</h1>
 	<button
 		style="font-size: 1rem; background: none; border: none; cursor: pointer; position: absolute; top: 50%; right: 1rem; transform: translateY(-50%);"
