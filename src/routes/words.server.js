@@ -361,6 +361,7 @@ export const allowed = new Set([
 	'aloin',
 	'aloos',
 	'alowe',
+	'alter',
 	'altho',
 	'altos',
 	'alula',
