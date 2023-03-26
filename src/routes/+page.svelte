@@ -264,6 +264,13 @@
 			</div>
 		{/if}
 	</div>
+
+	<div class="footer">
+		<p style="color: white; font-size: 1rem; margin-bottom: 1rem;">
+			Made by <a href="https://github.com/crizmo" style="color: #4f9948;">kurizu 🐱 </a> & <a href="https://github.com/ceasonal"> ceasonal 🦥</a>
+		</p>
+	</div>
+
 </form>
 
 {#if won}
