@@ -12,5 +12,5 @@ If you'd like to contribute to Cordle, there are a few guidelines you should fol
 3. Then test your changes before submitting a pull request.
 4. Once you're satisfied with your changes, submit a pull request.
 
-# Building
+# Build
 The basic template given by svelte was used to build this project.
