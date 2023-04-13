@@ -1,6 +1,7 @@
 /** The list of possible words */
 export const words = [
 	"debug",
+	"const",
 	"stack",
 	"array",
 	"parse",
@@ -99,6 +100,7 @@ export const words = [
 /** The list of valid guesses, of which the list of possible words is a subset */
 export const allowed = new Set([
 	...words,
+	"const",
 	"faffy",
 	"kiers",
 	"syens",
