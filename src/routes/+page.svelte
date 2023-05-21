@@ -121,6 +121,8 @@
 <svelte:head>
 	<title>Cordle</title>
 	<meta name="description" content="Wordle but with computer related words" />
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7361862651371009"
+	crossorigin="anonymous"></script>
 </svelte:head>
 
 <div style="width: 100%; height: 5rem; position: relative;">
